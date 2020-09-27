@@ -1,43 +1,16 @@
-import * as express from 'express';
-import * as bodyParser from 'body-parser';
+import express from 'express';
+import bodyParser from 'body-parser';
+import dotenv from 'dotenv';
+import { Routes } from './routes';
 
-import * as unreadMessages from './unreadMessages.json';
-import * as messages from './messages.json';
+dotenv.config();
 
 const app = express();
 
-const validIds = [4946, 645654, 654545];
-
 app.use(bodyParser.json());
+app.use(express.json());
 
-app.get('/:id/all_messages', (req, res) => {
-  return res.json(messages);
-});
-
-app.get('/:id/unread_messages', (req, res) => {
-  return res.json(unreadMessages);
-});
-
-app.post('/:id/write', (req, res) => {
-  const id = +req.params.id;
-  if (!id && !validIds.includes(+id)) {
-    res.statusCode = 400;
-    return res.send('invalid id');
-  }
-  if (!req.body) {
-    res.statusCode = 400;
-    return res.send('invalid data given');
-  }
-  const { sender, receiver, message, subject, creationDate } = req.body || {};
-  if (!sender || !receiver || !message || !subject || !creationDate) {
-    res.statusCode = 400;
-    return res.send('invalid data given');
-  }
-  if (!+sender || !+receiver) {
-  }
-  messages.push({ sender: +sender, receiver, message, subject, creationDate });
-  return res.sendStatus(200);
-});
+app.use(Routes);
 
 const PORT = process.env.PORT || 3000;
 
