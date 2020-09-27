@@ -2,8 +2,6 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 import { Routes } from './routes';
-import 'tsconfig-paths/register';
-import 'ts-node/register';
 
 dotenv.config();
 
