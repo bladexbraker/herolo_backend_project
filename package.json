@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "ts-node -r ts-node/register -r tsconfig-paths/register dist/index.js",
+    "build": "tsc -p .",
     "dev": "nodemon source/index.ts",
     "dev:debug": "nodemon --inspect source/index.ts"
   },
@@ -30,14 +32,7 @@
     "tsconfig-paths": "^3.9.0",
     "nodemon": "^2.0.4"
   },
-  "nodemonConfig": {
-    "ignore": [
-      "node_modules"
-    ],
-    "watch": [
-      "source"
-    ],
-    "exec": "npm start",
-    "ext": "ts"
+  "engines": {
+    "node": "13.1.0"
   }
 }
